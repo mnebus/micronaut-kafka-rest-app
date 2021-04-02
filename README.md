@@ -24,14 +24,13 @@ docker run -p 8088:8080 \
 -e KAFKA_CLUSTERS_0_ZOOKEEPER=host.docker.internal:2128 \
 -d provectuslabs/kafka-ui:latest
 ```
-
+---
 ## Micronaut 2.4.2 Documentation
 
 - [User Guide](https://docs.micronaut.io/2.4.2/guide/index.html)
 - [API Reference](https://docs.micronaut.io/2.4.2/api/index.html)
 - [Configuration Reference](https://docs.micronaut.io/2.4.2/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
----
 
 ## Feature openapi documentation
 
