@@ -1,19 +1,26 @@
 package com.aptvantage
 
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 
 import javax.inject.Inject
 import java.util.concurrent.TimeUnit
 
-@MicronautTest(environments = 'kafka')
-class IntegrationTestSpec extends Specification {
+@MicronautTest(environments = 'embedded-kafka')
+class EmbeddedKafkaITSpec extends Specification {
 
     @Inject
     ProducerController producerController
 
     @Inject
     KafkaClientConsumer kafkaClientConsumer
+
+    @Inject
+    @Client('/')
+    RxHttpClient httpClient
 
 
     def setup() {
@@ -31,7 +38,7 @@ class IntegrationTestSpec extends Specification {
         )
 
         when: 'A message is sent to the controller'
-        producerController.produceMessage('integration-test-topic-1', expectedMessage)
+        httpClient.toBlocking().retrieve(HttpRequest.POST('/produce/integration-test-topic-1',expectedMessage))
 
         then: 'That message is produced and consumed'
         expectedMessage == kafkaClientConsumer.messages.poll(10, TimeUnit.SECONDS)

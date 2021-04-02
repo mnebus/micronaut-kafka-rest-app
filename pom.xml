@@ -135,6 +135,7 @@
     </dependency>
 
 
+    <!-- for embedded kafka (deprecated by kafka) -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
@@ -151,6 +152,14 @@
       <artifactId>kafka_2.12</artifactId>
       <version>2.7.0</version>
       <classifier>test</classifier>
+    </dependency>
+
+    <!-- for external docker kafka from Testcontainers -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>kafka</artifactId>
+      <version>1.15.2</version>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>
