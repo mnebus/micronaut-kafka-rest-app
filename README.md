@@ -5,6 +5,7 @@ It features:
 - REST endpoint that accepts a topic and message as input and produces that message on the given topic
 - Kafka consumer that listens to all topics on the given cluster
 - embedded kafka integration test
+- kafka integration test using [Testcontainers](https://www.testcontainers.org/modules/kafka/)
 - Openapi docs published at http://localhost:8080/swagger/kafka-rest-app-0.0.yml
 - swagger-ui views published at http://localhost:8080/swagger-ui/
 - rapidoc views published at http://localhost:8080/rapidoc/
@@ -21,6 +22,7 @@ For development with hot reloading
 ## External dependencies
 - Java 11
 - Kafka boostrap-servers on localhost:9092 by default to run (not required to build/test)
+- Docker (for the [Testcontainers](https://www.testcontainers.org/modules/kafka/) embedded container based unit test)
 
 ## Useful kafka ui
 The following docker command will make it available at http://localhost:8088
