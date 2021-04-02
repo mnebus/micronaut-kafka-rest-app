@@ -2,7 +2,7 @@
 
 This ([Groovy](https://groovy-lang.org)) microservice application is an experiment for me to get to know the Micronaut framework.
 It features:
-- REST endpoint that accepts a topic and message as input and produces that messages on the given topic
+- REST endpoint that accepts a topic and message as input and produces that message on the given topic
 - Kafka consumer that listens to all topics on the given cluster
 - embedded kafka integration test
 - Openapi docs published at http://localhost:8080/swagger/kafka-rest-app-0.0.yml
