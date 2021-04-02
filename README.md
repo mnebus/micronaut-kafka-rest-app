@@ -10,6 +10,13 @@ It features:
 - rapidoc views published at http://localhost:8080/rapidoc/
 - prometheus metrics published to http://localhost:8080/prometheus
 
+## Running the application
+For development with hot reloading
+```
+./mvnw mn:run
+```
+> The views for swagger-ui and rapidoc require `./mvnw clean package`
+
 
 ## External dependencies
 - Java 11
