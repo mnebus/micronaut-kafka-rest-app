@@ -1,6 +1,6 @@
 # Playing with Micronaut, Kafka, and REST
 
-This application was an experiment for me to get to know the Micronaut framework.  
+This ([Groovy](https://groovy-lang.org)) microservice application is an experiment for me to get to know the Micronaut framework.
 It features:
 - REST endpoint that accepts a topic and message as input and produces that messages on the given topic
 - Kafka consumer that listens to all topics on the given cluster
