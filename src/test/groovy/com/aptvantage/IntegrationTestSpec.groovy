@@ -22,21 +22,19 @@ class IntegrationTestSpec extends Specification {
     }
 
     void 'messages are produced to and consumed from a topic'() {
-        given:
-
-        Message kv = new Message(
+        given: 'A message'
+        Message expectedMessage = new Message(
                 key: 'key-value',
                 otherStuff: [
                         hello: 'tester'
                 ]
         )
-        println([key:'value'].getClass())
 
-        when:
-        producerController.produceMessage('integration-test-topic-1', kv)
+        when: 'A message is sent to the controller'
+        producerController.produceMessage('integration-test-topic-1', expectedMessage)
 
-        then:
-        kv == kafkaClientConsumer.messages.poll(10, TimeUnit.SECONDS)
+        then: 'That message is produced and consumed'
+        expectedMessage == kafkaClientConsumer.messages.poll(10, TimeUnit.SECONDS)
     }
 
 }
