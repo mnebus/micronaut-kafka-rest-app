@@ -10,9 +10,15 @@ It features:
 - swagger-ui views published at http://localhost:8080/swagger-ui/
 - rapidoc views published at http://localhost:8080/rapidoc/
 - prometheus metrics published to http://localhost:8080/prometheus
+- leverage micronaut's (jib) ability to build a docker image
 
 ## Running the application
 For development with hot reloading
+1. start the required services in the background
+```
+docker-compose up -d zookeeper kafka-cluster kafka-ui
+```
+2. run the application 
 ```
 ./mvnw mn:run
 ```
@@ -32,17 +38,8 @@ docker-compose up
 ## External dependencies
 - Java 11
 - Kafka boostrap-servers on localhost:9092 by default to run (not required to build/test)
-- Docker (for the [Testcontainers](https://www.testcontainers.org/modules/kafka/) embedded container based unit test)
+- Docker
 
-## Useful kafka ui
-The following docker command will make it available at http://localhost:8088
-```
-docker run -p 8088:8080 \
--e KAFKA_CLUSTERS_0_NAME=local \
--e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=host.docker.internal:9092 \
--e KAFKA_CLUSTERS_0_ZOOKEEPER=host.docker.internal:2128 \
--d provectuslabs/kafka-ui:latest
-```
 ---
 ## Micronaut 2.4.2 Documentation
 

@@ -1,17 +1,31 @@
 package com.aptvantage
 
+import com.aptvantage.services.Topic
+import com.aptvantage.services.TopicCreatorService
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Error
 import io.micronaut.http.annotation.Post
 import io.reactivex.Single
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @Controller('/')
 class ProducerController {
 
-    private KafkaClientProducer kafkaClientProducer
+    private static final Logger logger = LoggerFactory.getLogger(ProducerController)
 
-    ProducerController(KafkaClientProducer kafkaClientProducer) {
+    private KafkaClientProducer kafkaClientProducer
+    private TopicCreatorService topicCreatorService
+
+
+    ProducerController(KafkaClientProducer kafkaClientProducer, TopicCreatorService topicCreatorService) {
+        this.topicCreatorService = topicCreatorService
         this.kafkaClientProducer = kafkaClientProducer
     }
 
@@ -20,5 +34,26 @@ class ProducerController {
         kafkaClientProducer.sendMessage(topic, message.getKey(), message)
         return Single.just(message)
     }
+
+    @ApiResponses(value = [
+            @ApiResponse(),
+            @ApiResponse(
+                    description = 'Topic already exists',
+                    responseCode = "409"
+            )]
+    )
+    @Post(uri = '/create-topic', consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    Single<Topic> createTopic(@Body Topic topic) {
+        this.topicCreatorService.createTopic(topic)
+        return Single.just(topic)
+
+    }
+
+    @Error(exception = TopicCreatorService.TopicAlreadyExistsException)
+    HttpResponse<Topic> topicAlreadyExists(TopicCreatorService.TopicAlreadyExistsException exception) {
+        return HttpResponse.status(HttpStatus.CONFLICT).body(exception.topic)
+    }
+
+
 
 }

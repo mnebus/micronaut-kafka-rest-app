@@ -28,3 +28,8 @@ endpoints:
 kafka:
   bootstrap:
     servers: localhost:9092
+kafka-rest-app:
+  auto-create-topics: '[
+     {"name": "test-topic", "partitions": 3},
+     {"name": "test-topic-2", "partitions": 1}
+    ]'
