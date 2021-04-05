@@ -18,6 +18,16 @@ For development with hot reloading
 ```
 > The views for swagger-ui and rapidoc require `./mvnw clean package`
 
+To run the application w/out any dependencies on local kafka:
+1. build/install the local docker image
+```
+./mvnw clean package -Dpackaging=docker
+```
+2. Run with `docker-compose`
+```
+docker-compose up
+```
+
 
 ## External dependencies
 - Java 11
