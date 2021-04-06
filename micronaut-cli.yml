@@ -1,6 +1,6 @@
 applicationType: default
 defaultPackage: com.aptvantage
 testFramework: spock
-sourceLanguage: groovy
+sourceLanguage: java
 buildTool: maven
-features: [annotation-api, app-name, groovy, groovy-application, http-client, jib, kafka, kafka-streams, kubernetes, logback, management, maven, micrometer, micrometer-prometheus, netty-server, openapi, readme, shade, spock, yaml]
+features: [annotation-api, app-name, http-client, java, java-application, kafka, logback, lombok, management, maven, micrometer, micrometer-prometheus, netty-server, openapi, readme, shade, spock, yaml]

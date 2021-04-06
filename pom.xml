@@ -19,7 +19,6 @@
     <release.version>11</release.version>
     <micronaut.version>2.4.2</micronaut.version>
     <exec.mainClass>com.aptvantage.Application</exec.mainClass>
-    <groovyVersion>3.0.7</groovyVersion>
     <micronaut.runtime>netty</micronaut.runtime>
   </properties>
 
@@ -31,22 +30,6 @@
   </repositories>
 
   <dependencies>
-    <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-inject-groovy</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy</artifactId>
-      <version>${groovyVersion}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.openapi</groupId>
-      <artifactId>micronaut-openapi</artifactId>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-inject</artifactId>
@@ -63,24 +46,19 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.openapi</groupId>
-      <artifactId>micronaut-openapi</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>io.micronaut.kafka</groupId>
       <artifactId>micronaut-kafka</artifactId>
       <scope>compile</scope>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>io.micronaut.kafka</groupId>-->
-<!--      <artifactId>micronaut-kafka-streams</artifactId>-->
-<!--      <scope>compile</scope>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-inject-groovy</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.spockframework</groupId>
@@ -109,8 +87,8 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.groovy</groupId>
-      <artifactId>micronaut-runtime-groovy</artifactId>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-runtime</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -133,7 +111,11 @@
       <artifactId>javax.annotation-api</artifactId>
       <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
     <!-- for embedded kafka (deprecated by kafka) -->
     <dependency>
@@ -161,7 +143,6 @@
       <version>1.15.2</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -181,6 +162,42 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <!-- Uncomment to enable incremental compilation -->
+          <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
+          <fork>true</fork>
+          <annotationProcessorPaths combine.self="override">
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-inject-java</artifactId>
+              <version>${micronaut.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-validation</artifactId>
+              <version>${micronaut.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut.openapi</groupId>
+              <artifactId>micronaut-openapi</artifactId>
+              <version>${micronaut.openapi.version}</version>
+            </path>
+          </annotationProcessorPaths>
+          <compilerArgs>
+            <arg>-Amicronaut.processing.group=com.aptvantage</arg>
+            <arg>-Amicronaut.processing.module=kafka-rest-app</arg>
+            <arg>-J-Dmicronaut.openapi.views.spec=rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop,redoc.enabled=true</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
         <version>1.9.0</version>
@@ -196,38 +213,6 @@
               <goal>compileTests</goal>
               <goal>removeTestStubs</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>properties-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>set-system-properties</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <property>
-                  <name>groovy.target.directory</name>
-                  <value>${project.build.directory}/classes</value>
-                </property>
-                <property>
-                  <name>groovy.parameters</name>
-                  <value>true</value>
-                </property>
-                <property>
-                  <name>micronaut.openapi.views.spec</name>
-                  <value>rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop</value>
-                </property>
-              </properties>
-            </configuration>
           </execution>
         </executions>
       </plugin>
