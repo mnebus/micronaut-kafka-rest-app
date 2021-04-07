@@ -11,6 +11,7 @@ It features:
 - rapidoc views published at http://localhost:8080/rapidoc/
 - prometheus metrics published to http://localhost:8080/prometheus
 - leverage micronaut's (jib) ability to build a docker image
+- run as a native image with [GraalVM](https://www.graalvm.org/)
 
 ---
 ## Running the application
@@ -71,8 +72,7 @@ docker-compose up
 
 
 ## External dependencies
-- Java 11
-- Kafka boostrap-servers on localhost:9092 by default to run (not required to build/test)
+- Java 11 (optional -> GraalVM)
 - Docker
 
 ---
