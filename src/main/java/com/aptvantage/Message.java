@@ -1,5 +1,6 @@
 package com.aptvantage;
 
+import io.micronaut.core.annotation.Introspected;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.LinkedHashMap;
 @ToString
 @Getter
 @Setter
+@Introspected
 public class Message {
     private String key;
     private LinkedHashMap otherStuff;

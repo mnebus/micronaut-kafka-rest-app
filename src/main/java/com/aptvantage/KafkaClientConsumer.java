@@ -26,11 +26,11 @@ public class KafkaClientConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaClientConsumer.class);
 
-    KafkaClientConsumer(@Value("${kafka-rest-app.auto-create-topics}") String topicJsons, TopicCreatorService creator) {
-        ObjectMapper mapper = new ObjectMapper();
+    KafkaClientConsumer(@Value("${kafka-rest-app.auto-create-topics}") String topicJsons,
+                        TopicCreatorService creator, ObjectMapper objectMapper) {
         logger.info("auto-creating topics: {}", topicJsons);
         try {
-            List<com.aptvantage.services.Topic> topics = mapper.readValue(topicJsons, new TypeReference<>() {
+            List<com.aptvantage.services.Topic> topics = objectMapper.readValue(topicJsons, new TypeReference<>() {
             });
             for (com.aptvantage.services.Topic topic : topics) {
                 try {

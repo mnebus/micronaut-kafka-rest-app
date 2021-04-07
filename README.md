@@ -12,6 +12,7 @@ It features:
 - prometheus metrics published to http://localhost:8080/prometheus
 - leverage micronaut's (jib) ability to build a docker image
 
+---
 ## Running the application
 For development with hot reloading
 1. start the required services in the background
@@ -22,7 +23,6 @@ docker-compose up -d zookeeper kafka-cluster kafka-ui
 ```
 ./mvnw mn:run
 ```
-> The views for swagger-ui and rapidoc require `./mvnw clean package`
 
 To run the application w/out any dependencies on local kafka:
 1. build/install the local docker image
@@ -30,6 +30,41 @@ To run the application w/out any dependencies on local kafka:
 ./mvnw clean package -Dpackaging=docker
 ```
 2. Run with `docker-compose`
+```
+docker-compose up
+```
+---
+## Building and running "native images" with GraalVM and docker
+Prerequisite: Install the GraalVM
+The easiest way to do this is with [sdkman](https://sdkman.io/)
+```
+sdk install java 21.0.0.r11-grl
+gu install native-image
+```
+
+### Running the native image locally
+1. Build the native image
+```
+./mvnw clean package -Dpackaging=native-image
+```
+
+2. Start the docker dependencies
+```
+docker-compose up -d zookeeper kafka-cluster kafka-ui
+```
+
+3. Run the native binary
+```
+target/kafka-rest-app
+```
+
+### Running a native image in a docker container
+1. Build the native docker container
+```
+./mvnw clean package -Dpackaging=docker-native
+```
+
+2. Run with docker-compose
 ```
 docker-compose up
 ```
