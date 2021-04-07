@@ -10,7 +10,7 @@ It features:
 - swagger-ui views published at http://localhost:8080/swagger-ui/
 - rapidoc views published at http://localhost:8080/rapidoc/
 - prometheus metrics published to http://localhost:8080/prometheus
-- leverage micronaut's (jib) ability to build a docker image
+- leverage Micronaut's (jib) ability to build a docker image
 - run as a native image with [GraalVM](https://www.graalvm.org/)
 
 ---
@@ -25,7 +25,7 @@ docker-compose up -d zookeeper kafka-cluster kafka-ui
 ./mvnw mn:run
 ```
 
-To run the application w/out any dependencies on local kafka:
+To run the application in a docker container:
 1. build/install the local docker image
 ```
 ./mvnw clean package -Dpackaging=docker
