@@ -36,8 +36,8 @@ docker-compose up
 ```
 ---
 ## Building and running "native images" with GraalVM and docker
-Prerequisite: Install the GraalVM
-The easiest way to do this is with [sdkman](https://sdkman.io/)
+Prerequisite: Install the GraalVM.
+The easiest way to do this is with [sdkman](https://sdkman.io/).
 ```
 sdk install java 21.0.0.r11-grl
 gu install native-image
