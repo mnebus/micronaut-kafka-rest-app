@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * kafka-streams requires at least one listener
  */
-@KafkaListener(groupId = "kafka-rest-app2", offsetReset = OffsetReset.EARLIEST)
+@KafkaListener(groupId = "kafka-rest-app", offsetReset = OffsetReset.EARLIEST)
 @Singleton
 public class KafkaClientConsumer {
 
